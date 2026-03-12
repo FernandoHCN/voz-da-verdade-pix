@@ -57,19 +57,18 @@
     <div class="bg-slate-800/40 border border-slate-700/50 rounded-xl p-8 backdrop-blur-sm flex flex-col items-center">
       <!-- QR Code Container -->
       <div class="bg-white p-4 rounded-lg shadow-2xl mb-8 group hover:scale-[1.02] transition-transform duration-300">
-        <img alt="PIX QR Code" class="w-60 h-60" data-alt="Secure PIX QR Code for bank transfer"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrYxwruH8ksbHB_HSLyQeeXqNe48JuhhA1cBszn-3sYWOyQ0R5BSD-dhiHx0JiwiQEt4XTEZP0y-BK-dV0OjKIUzzllpM7QTXr0-YY7h8TwlwfNm1SMznx_Td_LcdTEhk9srIo0DPThVNnfJTVxdMcThTrd51nxZQ20dtVukGU5jqxxt7zq38GzO-cR35G4crJIOfthqBLuxCvFehOTAHoIRdVCOPhq2EwgimL7YXYdtztVpdzpVhyj53wVlcbZ50e0v2WhjGTsCw" />
+        <img alt="PIX QR Code" class="w-60 h-60" data-alt="Secure PIX QR Code for bank transfer" src="qrcode-pix.PNG" />
       </div>
       <div class="w-full space-y-4">
         <p class="text-sm font-semibold text-slate-400 uppercase tracking-widest text-center">Pix Copia e Cola</p>
         <!-- Copy Field -->
         <div class="flex items-stretch bg-slate-900/80 border border-slate-700 rounded-lg overflow-hidden">
-          <div class="flex-grow px-4 py-3 text-sm font-mono text-slate-300 truncate">
-            00020126360014br.gov.bcb.pix011412345678000199520400005303986540510.005802BR5915VVFM_MINISTERIO6009SAO_PAULO62070503***6304E2D1
+          <div id="pix-key" class="flex-grow px-4 py-3 text-sm font-mono text-slate-300 truncate">
+            04.322.906/0001-83
           </div>
-          <button
+          <button id="copy-btn" title="Copiar PIX"
             class="bg-primary hover:bg-primary/90 text-white px-4 flex items-center justify-center transition-colors">
-            <span class="material-symbols-outlined">content_copy</span>
+            <span id="copy-icon" class="material-symbols-outlined">content_copy</span>
           </button>
         </div>
         <p class="text-xs text-center text-slate-500 italic">
@@ -105,6 +104,21 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.getElementById('copy-btn').addEventListener('click', function () {
+      const pixKey = document.getElementById('pix-key').innerText.trim();
+      navigator.clipboard.writeText(pixKey).then(() => {
+        const copyIcon = document.getElementById('copy-icon');
+        copyIcon.innerText = 'check';
+        setTimeout(() => {
+          copyIcon.innerText = 'content_copy';
+        }, 2000);
+      }).catch(err => {
+        console.error('Erro ao copiar: ', err);
+      });
+    });
+  </script>
 </body>
 
 </html>
